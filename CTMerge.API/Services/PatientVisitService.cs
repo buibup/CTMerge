@@ -33,7 +33,7 @@ namespace CTMerge.API.Services
 
         public Task<IEnumerable<PatientVisitVM>> ReadAllAsync()
         {
-            throw new NotImplementedException();
+            return _patientVisitRepository.ReadAllAsync();
         }
 
         public Task<PatientVisitVM> ReadOneAsync(string hn)

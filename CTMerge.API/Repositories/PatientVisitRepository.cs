@@ -10,12 +10,12 @@ namespace CTMerge.API.Repositories
 {
     public class PatientVisitRepository : IPatientVisitRepository
     {
-        private readonly List<PatientVisitVM> patientVisit;
+        private readonly List<PatientVisitVM> _patientVisit;
 
         public PatientVisitRepository(IEnumerable<PatientVisitVM> PatientVisit)
         {
             if (PatientVisit == null) { throw new ArgumentNullException(nameof(PatientVisit)); }
-            patientVisit = new List<PatientVisitVM>(PatientVisit);
+            _patientVisit = new List<PatientVisitVM>(PatientVisit);
         }
 
         public Task<PatientVisitVM> CreateAsync(PatientVisitVM PatientVisit)
@@ -30,12 +30,12 @@ namespace CTMerge.API.Repositories
 
         public Task<IEnumerable<PatientVisitVM>> ReadAllAsync()
         {
-            return Task.FromResult(patientVisit.AsEnumerable());
+            return Task.FromResult(_patientVisit.AsEnumerable());
         }
 
         public Task<PatientVisitVM> ReadOneAsync(string hn)
         {
-            var patietnData = patientVisit.FirstOrDefault(c => c.HN == hn);
+            var patietnData = _patientVisit.FirstOrDefault(c => c.HN == hn);
             return Task.FromResult(patietnData);
         }
 

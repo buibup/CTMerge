@@ -1,31 +1,37 @@
-﻿using CTMerge.API.Models;
-using CTMerge.API.Services;
+﻿using CTMerge.API.Services;
 using CTMerge.API.ViewModel;
 using System;
 using System.Collections.Generic;
-using System.Linq;
 using System.Net;
 using System.Net.Http;
 using System.Threading.Tasks;
 using System.Web.Http;
-using System.Web.Mvc;
+using static CTMerge.API.Enums;
 
 namespace CTMerge.API.Controllers
 {
     public class PatientController : ApiController
     {
-        private readonly IPatientVisitService _patientVisitService;
+        private readonly IPatientService _patientService;
 
-        public PatientController(IPatientVisitService patientVisitService)
+        public PatientController()
         {
-            _patientVisitService = patientVisitService ?? throw new ArgumentNullException(nameof(patientVisitService));
+            _patientService = new PatientService();
         }
-        
 
-        public async Task<IEnumerable<PatientVisitVM>> ReadAllAsync()
+        [HttpGet]
+        [Route("api/v1/FindPatient/")]
+        public async Task<IEnumerable<PatientVM>> FindPatient(string search, string type)
         {
-            var allPatient = await _patientVisitService.ReadAllAsync();
-            return allPatient;
+            SearchType searchType = SearchType.HN;
+            if (!Enum.TryParse(type, true, out searchType))
+            {
+                throw new HttpResponseException(Request.CreateErrorResponse(HttpStatusCode.NotFound,"this type does not exist"));
+            }
+            else
+            {
+                return await _patientService.FindPatientAsync(search, searchType);
+            }
         }
     }
 }

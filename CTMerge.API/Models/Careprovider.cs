@@ -1,8 +1,5 @@
-
-using System;
-
 namespace CTMerge.API.Models
-{ 
+{
     public partial class Careprovider
     {
         public int Id { get; set; }

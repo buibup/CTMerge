@@ -1,12 +1,13 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Web;
-
-namespace CTMerge.API
+﻿namespace CTMerge.API
 {
     public class Enums
     {
+        public enum DatabaseType
+        {
+            MySql,
+            Cache
+        }
+
         public enum SearchType
         {
             HN,

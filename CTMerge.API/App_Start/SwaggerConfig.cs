@@ -3,7 +3,6 @@ using WebActivatorEx;
 using CTMerge.API;
 using Swashbuckle.Application;
 using System;
-using System.Xml.XPath;
 
 [assembly: PreApplicationStartMethod(typeof(SwaggerConfig), "Register")]
 

@@ -12,7 +12,6 @@ namespace CTMerge.API.Controllers
         {
             var patient = new PatientData()
             {
-                Id = 1,
                 HN = "test",
                 FirstName = "test",
                 LastName = "test",

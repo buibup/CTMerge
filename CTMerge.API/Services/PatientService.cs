@@ -14,9 +14,9 @@ namespace CTMerge.API.Services
             _patientVisitRepository = new PatientRepository();
         }
 
-        public Task<IEnumerable<PatientVM>> FindPatientAsync(string search, Enums.SearchType type)
+        public Task<IEnumerable<PatientVM>> FindPatientAsync(string search)
         {
-            return _patientVisitRepository.FindPatient(search, type);
+            return _patientVisitRepository.FindPatient(search);
         }
 
         public Task<bool> IsPatientExistsAsync(string hn)

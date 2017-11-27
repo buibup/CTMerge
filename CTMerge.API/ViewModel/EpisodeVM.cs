@@ -16,6 +16,6 @@ namespace CTMerge.API.ViewModel
         public string EpiWardCode { get; set; }
         public string EpiWardDesc { get; set; }
         public string EpiRoom { get; set; }
-        public string EpiDesc { get; set; }
+        public string EpiBed { get; set; }
     }
 }

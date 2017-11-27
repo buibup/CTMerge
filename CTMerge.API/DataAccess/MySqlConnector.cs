@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 using CTMerge.API.ViewModel;
 using MySql.Data.MySqlClient;
@@ -18,30 +18,14 @@ namespace CTMerge.API.DataAccess
             mySqlConnection = new MySqlConnection(GlobalConfig.CnnString(db));
         }
 
-        public IEnumerable<PatientVM> FindPatient(string search, SearchType type)
+        public IEnumerable<PatientVM> FindPatient(string search)
         {
             using (IDbConnection connection = mySqlConnection)
             {
                 var p = new DynamicParameters();
                 p.Add("@Search_Data", search);
-                p.Add("@Type_Search", type.ToString());
                 return connection.Query<PatientVM>("GetPatient", p, commandType: CommandType.StoredProcedure).ToList();
             }
-        }
-
-        public IEnumerable<PatientVisitVM> ReadAll()
-        {
-            throw new NotImplementedException();
-        }
-
-        public PatientVisitVM ReadOne(string search, SearchType searchType)
-        {
-            throw new NotImplementedException();
-        }
-
-        public PatientVisitVM Update(PatientVisitVM PatientVisit)
-        {
-            throw new NotImplementedException();
         }
     }
 }

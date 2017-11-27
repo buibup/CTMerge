@@ -2,7 +2,6 @@ namespace CTMerge.API.Models
 {
     public partial class Careprovider
     {
-        public int Id { get; set; }
         public string CareCode { get; set; }
         public string CareName { get; set; }
         public string CareGroupCode { get; set; }

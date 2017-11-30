@@ -10,6 +10,6 @@ namespace CTMerge.API.Services
         Task<IEnumerable<PatientVisitVM>> ReadAllAsync();
         Task<PatientVisitVM> ReadOneAsync(string hn);
         Task<bool> IsPatientExistsAsync(string hn);
-        Task<IEnumerable<PatientVM>> FindPatientAsync(string search, SearchType type);
+        Task<IEnumerable<PatientVM>> GetPatientAsync(string search);
     }
 }

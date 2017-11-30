@@ -7,6 +7,6 @@ namespace CTMerge.API.Repositories
 {
     public interface IPatientRepository
     {
-        Task<IEnumerable<PatientVM>> FindPatient(string search);
+        Task<IEnumerable<PatientVM>> GetPatient(string search);
     }
 }

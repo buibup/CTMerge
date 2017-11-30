@@ -15,11 +15,14 @@ namespace CTMerge.API.Repositories
 
         public PatientRepository()
         {
-            GlobalConfig.InitializeConnections(DatabaseType.MySql);
+            _cacheConnection = new CacheConnector();
+            _mySqlConnection = new MySqlConnector();
         }
-        public Task<IEnumerable<PatientVM>> FindPatient(string search)
+
+
+        public Task<IEnumerable<PatientVM>> GetPatient(string search)
         {
-            return Task.Run(() => _mySqlConnection.FindPatient(search));
+            return Task.Run(() => _mySqlConnection.GetPatient(search));
         }
     }
 }

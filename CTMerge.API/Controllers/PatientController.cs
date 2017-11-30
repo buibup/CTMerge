@@ -21,17 +21,9 @@ namespace CTMerge.API.Controllers
 
         [HttpGet]
         [Route("api/v1/FindPatient/")]
-        public async Task<IEnumerable<PatientVM>> FindPatient(string search, string type)
+        public async Task<IEnumerable<PatientVM>> GetPatient(string search)
         {
-            SearchType searchType = SearchType.HN;
-            if (!Enum.TryParse(type, true, out searchType))
-            {
-                throw new HttpResponseException(Request.CreateErrorResponse(HttpStatusCode.NotFound,"this type does not exist"));
-            }
-            else
-            {
-                return await _patientService.FindPatientAsync(search, searchType);
-            }
+            return await _patientService.GetPatientAsync(search);
         }
     }
 }

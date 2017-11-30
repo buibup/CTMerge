@@ -18,7 +18,7 @@ namespace CTMerge.API.DataAccess
             mySqlConnection = new MySqlConnection(GlobalConfig.CnnString(db));
         }
 
-        public IEnumerable<PatientVM> FindPatient(string search)
+        public IEnumerable<PatientVM> GetPatient(string search)
         {
             using (IDbConnection connection = mySqlConnection)
             {
@@ -26,6 +26,16 @@ namespace CTMerge.API.DataAccess
                 p.Add("@Search_Data", search);
                 return connection.Query<PatientVM>("GetPatient", p, commandType: CommandType.StoredProcedure).ToList();
             }
+        }
+
+        public IEnumerable<PatientVisitVM> GetPatientVisit(string hn)
+        {
+            throw new NotImplementedException();
+        }
+
+        public bool MergePatient(string oldHN, string newHN)
+        {
+            throw new NotImplementedException();
         }
     }
 }

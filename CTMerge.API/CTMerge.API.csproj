@@ -206,8 +206,10 @@
     <Compile Include="Controllers\PatientController.cs" />
     <Compile Include="Controllers\ValuesController.cs" />
     <Compile Include="DataAccess\CacheConnector.cs" />
-    <Compile Include="DataAccess\DBQuery.cs" />
-    <Compile Include="DataAccess\IDataConnection.cs" />
+    <Compile Include="DataAccess\DBCacheQuery.cs" />
+    <Compile Include="DataAccess\Extension.cs" />
+    <Compile Include="DataAccess\ICacheDataConnection.cs" />
+    <Compile Include="DataAccess\IMySqlDataConnection.cs" />
     <Compile Include="DataAccess\MySqlConnector.cs" />
     <Compile Include="Enums.cs" />
     <Compile Include="Global.asax.cs">
@@ -237,7 +239,9 @@
     <Compile Include="Repositories\PatientRepository.cs" />
     <Compile Include="Services\IPatientService.cs" />
     <Compile Include="Services\PatientService.cs" />
+    <Compile Include="ViewModel\BasePatientVM.cs" />
     <Compile Include="ViewModel\EpisodeVM.cs" />
+    <Compile Include="ViewModel\PatientMergeVM.cs" />
     <Compile Include="ViewModel\PatientVisitVM.cs" />
     <Compile Include="ViewModel\PatientVM.cs" />
   </ItemGroup>

@@ -20,10 +20,24 @@ namespace CTMerge.API.Controllers
         }
 
         [HttpGet]
-        [Route("api/v1/FindPatient/")]
-        public async Task<IEnumerable<PatientVM>> GetPatient(string search)
+        [Route("api/v1/GetPatientBCT/")]
+        public async Task<IEnumerable<PatientVM>> GetPatientBCT(string search)
         {
-            return await _patientService.GetPatientAsync(search);
+            return await _patientService.GetPatientBCTAsync(search);
+        }
+
+        [Route("api/v1/GetPatientSCTByHN/")]
+        [HttpGet]
+        public async Task<IEnumerable<BasePatientVM>> GetPatientSCTByHN(string hn)
+        {
+            return await _patientService.GetPatientSCTByHNAsync(hn);
+        }
+
+        [Route("api/v1/GetPatientSCTByName/")]
+        [HttpGet]
+        public async Task<IEnumerable<BasePatientVM>> GetPatientSCTByName(string firstName, string lastName)
+        {
+            return await _patientService.GetPatientSCTByNameAsync(firstName, lastName);
         }
     }
 }

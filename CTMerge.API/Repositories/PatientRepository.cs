@@ -10,8 +10,8 @@ namespace CTMerge.API.Repositories
 {
     public class PatientRepository : IPatientRepository
     {
-        private IDataConnection _cacheConnection;
-        private IDataConnection _mySqlConnection;
+        private ICacheDataConnection _cacheConnection;
+        private IMySqlDataConnection _mySqlConnection;
 
         public PatientRepository()
         {
@@ -20,9 +20,24 @@ namespace CTMerge.API.Repositories
         }
 
 
-        public Task<IEnumerable<PatientVM>> GetPatient(string search)
+        public Task<IEnumerable<PatientVM>> GetPatientBCT(string search)
         {
-            return Task.Run(() => _mySqlConnection.GetPatient(search));
+            return Task.Run(() => _mySqlConnection.GetPatientBCT(search));
+        }
+
+        public Task<IEnumerable<BasePatientVM>> GetPatientSCTByHN(string hn)
+        {
+            return Task.Run(() => _cacheConnection.GetPatient(hn));
+        }
+
+        public Task<IEnumerable<BasePatientVM>> GetPatientSCTByName(string firstName, string lastName)
+        {
+            return Task.Run(() => _cacheConnection.GetPatient(firstName, lastName));
+        }
+
+        public Task<IEnumerable<PatientVisitVM>> GetPatientVisit(string hn)
+        {
+            throw new NotImplementedException();
         }
     }
 }

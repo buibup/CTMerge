@@ -14,9 +14,19 @@ namespace CTMerge.API.Services
             _patientVisitRepository = new PatientRepository();
         }
 
-        public Task<IEnumerable<PatientVM>> GetPatientAsync(string search)
+        public Task<IEnumerable<PatientVM>> GetPatientBCTAsync(string search)
         {
-            return _patientVisitRepository.GetPatient(search);
+            return _patientVisitRepository.GetPatientBCT(search);
+        }
+
+        public Task<IEnumerable<BasePatientVM>> GetPatientSCTByHNAsync(string hn)
+        {
+            return _patientVisitRepository.GetPatientSCTByHN(hn);
+        }
+
+        public Task<IEnumerable<BasePatientVM>> GetPatientSCTByNameAsync(string firstName, string lastName)
+        {
+            return _patientVisitRepository.GetPatientSCTByName(firstName, lastName);
         }
 
         public Task<bool> IsPatientExistsAsync(string hn)

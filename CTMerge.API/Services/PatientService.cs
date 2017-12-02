@@ -19,6 +19,11 @@ namespace CTMerge.API.Services
             return _patientVisitRepository.GetPatientBCT(search);
         }
 
+        public Task<PatientVisitVM> GetPatientBCTVisitAsync(string hn)
+        {
+            return _patientVisitRepository.GetPatientBCTVisit(hn);
+        }
+
         public Task<IEnumerable<BasePatientVM>> GetPatientSCTByHNAsync(string hn)
         {
             return _patientVisitRepository.GetPatientSCTByHN(hn);
@@ -34,14 +39,9 @@ namespace CTMerge.API.Services
             throw new NotImplementedException();
         }
 
-        public Task<IEnumerable<PatientVisitVM>> ReadAllAsync()
+        public Task<bool> PatientMergeAsync(string BCT_HN, string SCT_HN)
         {
-            throw new NotImplementedException();
-        }
-
-        public Task<PatientVisitVM> ReadOneAsync(string hn)
-        {
-            throw new NotImplementedException();
+            return _patientVisitRepository.PatientMerge(BCT_HN, SCT_HN);
         }
     }
 }

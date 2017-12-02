@@ -5,7 +5,7 @@ namespace CTMerge.API.ViewModel
 {
     public class PatientVisitVM
     {
-        public PatientVM Patient { get; set; }
+        public PatientVM PatientVM { get; set; }
         public List<EpisodeVM> EpisodeList { get; set; }
     }
 }

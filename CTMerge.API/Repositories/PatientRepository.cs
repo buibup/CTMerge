@@ -35,9 +35,14 @@ namespace CTMerge.API.Repositories
             return Task.Run(() => _cacheConnection.GetPatient(firstName, lastName));
         }
 
-        public Task<IEnumerable<PatientVisitVM>> GetPatientVisit(string hn)
+        public Task<PatientVisitVM> GetPatientBCTVisit(string hn)
         {
-            throw new NotImplementedException();
+            return Task.Run(() => _mySqlConnection.GetPatientBCTVisit(hn));
+        }
+
+        public Task<bool> PatientMerge(string BCT_HN, string SCT_HN)
+        {
+            return Task.Run(() => _mySqlConnection.PatientMerge(BCT_HN, SCT_HN));
         }
     }
 }

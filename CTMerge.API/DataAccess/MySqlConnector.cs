@@ -7,6 +7,7 @@ using Dapper;
 using System.Linq;
 using static CTMerge.API.Enums;
 using CTMerge.API.Models;
+using System.Threading.Tasks;
 
 namespace CTMerge.API.DataAccess
 {
@@ -19,6 +20,34 @@ namespace CTMerge.API.DataAccess
             mySqlConnection = new MySqlConnection(GlobalConfig.CnnString(db));
         }
 
+        private PatientVM GetPatientBCTByHN(string hn)
+        {
+            using (IDbConnection connection = mySqlConnection)
+            {
+                var p = new DynamicParameters();
+                p.Add("@Search_Data", hn);
+                var pt = connection.QueryAsync<PatientData>("GetPatient", p, commandType: CommandType.StoredProcedure).Result.FirstOrDefault();
+            
+                var ptvm = new PatientVM();
+                var patient = new BasePatientVM()
+                {
+                    HN = pt.HN,
+                    TitleName = pt.TitileName,
+                    FirstName = pt.FirstName,
+                    MiddleName = pt.MiddleName,
+                    LastName = pt.LastName,
+                    DOB = pt.DOB,
+                    SexCode = pt.SexCode,
+                    SexDesc = pt.SexDesc,
+                    IDCard = pt.IDCard
+                };
+                ptvm.Patient = patient;
+                ptvm.SCT_HN = pt.SCT_HN;
+                
+                return ptvm;
+            }
+        }
+
         public IEnumerable<PatientVM> GetPatientBCT(string search)
         {
             using (IDbConnection connection = mySqlConnection)
@@ -26,9 +55,9 @@ namespace CTMerge.API.DataAccess
                 var data = new List<PatientVM>();
                 var p = new DynamicParameters();
                 p.Add("@Search_Data", search);
-                var patients = connection.Query<PatientData>("GetPatient", p, commandType: CommandType.StoredProcedure).ToList();
+                var patients = connection.QueryAsync<PatientData>("GetPatient", p, commandType: CommandType.StoredProcedure).Result.ToList();
 
-                foreach(var pt in patients)
+                foreach (var pt in patients)
                 {
                     var ptvm = new PatientVM();
                     var patient = new BasePatientVM()
@@ -58,14 +87,47 @@ namespace CTMerge.API.DataAccess
             throw new NotImplementedException();
         }
 
-        public IEnumerable<PatientVisitVM> GetPatientVisit(string hn)
+        public PatientVisitVM GetPatientBCTVisit(string hn)
         {
-            throw new NotImplementedException();
+            var pEpi = new DynamicParameters();
+            pEpi.Add("@_HN", hn);
+
+            using (IDbConnection connection = mySqlConnection)
+            {
+                var ptvm = GetPatientBCTByHN(hn);
+                var epiVMList = connection.QueryAsync<EpisodeVM>("GetAllEpisodeByHN", pEpi, commandType: CommandType.StoredProcedure).Result.ToList();
+
+                var ptVisitVm = new PatientVisitVM()
+                {
+                    PatientVM = ptvm,
+                    EpisodeList = epiVMList
+                };
+
+                return ptVisitVm;
+            }
         }
 
-        public bool MergePatient(string oldHN, string newHN)
+        public bool PatientMerge(string BCT_HN, string SCT_HN)
         {
-            throw new NotImplementedException();
+            bool isMerge = false;
+            var p = new DynamicParameters();
+            p.Add("@_BCT_HN", BCT_HN);
+            p.Add("@_SCT_HN", SCT_HN);
+            using (IDbConnection connection = mySqlConnection)
+            {
+                try
+                {
+                    isMerge = connection.QueryAsync<bool>("MergePatient", p, commandType: CommandType.StoredProcedure).Result.FirstOrDefault();
+                }
+                catch (Exception e)
+                {
+
+                    return isMerge;
+                }
+
+            }
+
+            return isMerge;
         }
     }
 }

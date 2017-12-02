@@ -25,8 +25,7 @@ namespace CTMerge.API.DataAccess
 
             using (IDbConnection connection = cacheConnection)
             {
-                //connection.Open();
-                data = connection.QueryFirstOrDefault<BasePatientVM>(DBCacheQuery.GetPatientByHN(), new { PAPMI_No = hn });
+                data = connection.QueryFirstOrDefaultAsync<BasePatientVM>(DBCacheQuery.GetPatientByHN(), new { PAPMI_No = hn }).Result;
             }
 
             return data;
@@ -50,7 +49,7 @@ namespace CTMerge.API.DataAccess
 
             using (IDbConnection connection = cacheConnection)
             {
-                data = connection.Query<BasePatientVM>(query, p).ToList();
+                data = connection.QueryAsync<BasePatientVM>(query, p).Result.ToList();
             }
 
             return data;
@@ -63,7 +62,7 @@ namespace CTMerge.API.DataAccess
 
             using (IDbConnection connection = cacheConnection)
             {
-                data = connection.Query<BasePatientVM>(DBCacheQuery.GetPatientByName(firstName, lastName), p).ToList();    
+                data = connection.QueryAsync<BasePatientVM>(DBCacheQuery.GetPatientByName(firstName, lastName), p).Result.ToList();    
             }
 
             return data;

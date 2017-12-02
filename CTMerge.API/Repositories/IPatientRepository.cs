@@ -10,6 +10,7 @@ namespace CTMerge.API.Repositories
         Task<IEnumerable<PatientVM>> GetPatientBCT(string search);
         Task<IEnumerable<BasePatientVM>> GetPatientSCTByHN(string hn);
         Task<IEnumerable<BasePatientVM>> GetPatientSCTByName(string firstName, string lastName);
-        Task<IEnumerable<PatientVisitVM>> GetPatientVisit(string hn);
+        Task<PatientVisitVM> GetPatientBCTVisit(string hn);
+        Task<bool> PatientMerge(string BCT_HN, string SCT_HN);
     }
 }

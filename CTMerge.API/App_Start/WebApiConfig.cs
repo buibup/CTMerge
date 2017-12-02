@@ -1,4 +1,6 @@
-﻿using System.Web.Http;
+﻿using System.Net.Http.Headers;
+using System.Web.Http;
+using System.Web.Http.Cors;
 
 namespace CTMerge.API
 {
@@ -7,6 +9,8 @@ namespace CTMerge.API
         public static void Register(HttpConfiguration config)
         {
             // Web API configuration and services
+            //config.EnableCors(new EnableCorsAttribute("http://localhost:4200", headers: "*", methods: "*"));
+            config.EnableCors();
 
             // Web API routes
             config.MapHttpAttributeRoutes();
@@ -16,6 +20,8 @@ namespace CTMerge.API
                 routeTemplate: "api/{controller}/{id}",
                 defaults: new { id = RouteParameter.Optional }
             );
+
+            config.Formatters.JsonFormatter.SupportedMediaTypes.Add(new MediaTypeHeaderValue("text/html"));
         }
     }
 }

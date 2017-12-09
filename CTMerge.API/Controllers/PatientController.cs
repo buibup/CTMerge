@@ -41,7 +41,7 @@ namespace CTMerge.API.Controllers
         }
 
         [Route("api/v1/PatienMerge/")]
-        [HttpPut]
+        [HttpGet]
         public async Task<bool> PatienMerge(string BCT_HN, string SCT_HN)
         {
             return await _patientService.PatientMergeAsync(BCT_HN, SCT_HN);

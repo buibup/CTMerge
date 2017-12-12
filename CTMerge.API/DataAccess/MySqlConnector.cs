@@ -82,11 +82,6 @@ namespace CTMerge.API.DataAccess
             }
         }
 
-        public IEnumerable<PatientMergeVM> GetPatientMerge(string hn)
-        {
-            throw new NotImplementedException();
-        }
-
         public PatientVisitVM GetPatientBCTVisit(string hn)
         {
             var pEpi = new DynamicParameters();
@@ -128,6 +123,28 @@ namespace CTMerge.API.DataAccess
             }
 
             return isMerge;
+        }
+
+        public bool HasPatient(string SCT_HN)
+        {
+            bool hasPatient = false;
+            var p = new DynamicParameters();
+            p.Add("@_SCT_HN", SCT_HN);
+            using (IDbConnection connection = mySqlConnection)
+            {
+                try
+                {
+                    hasPatient = connection.QueryAsync<bool>("HasPatient", p, commandType: CommandType.StoredProcedure).Result.FirstOrDefault();
+                }
+                catch (Exception e)
+                {
+
+                    return hasPatient;
+                }
+
+            }
+
+            return hasPatient;
         }
     }
 }

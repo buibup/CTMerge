@@ -36,7 +36,7 @@ namespace CTMerge.API.Services
 
         public Task<bool> IsPatientExistsAsync(string hn)
         {
-            throw new NotImplementedException();
+            return _patientVisitRepository.HasPatient(hn);
         }
 
         public Task<bool> PatientMergeAsync(string BCT_HN, string SCT_HN)

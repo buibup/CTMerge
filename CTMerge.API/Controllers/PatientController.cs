@@ -47,6 +47,13 @@ namespace CTMerge.API.Controllers
             return await _patientService.PatientMergeAsync(BCT_HN, SCT_HN);
         }
 
+        [Route("api/v1/IsPatientExists/")]
+        [HttpGet]
+        public async Task<bool> IsPatientExists(string hn)
+        {
+            return await _patientService.IsPatientExistsAsync(hn);
+        }
+
         [Route("api/v1/GetPatientBCTVisit/")]
         [HttpGet]
         public async Task<PatientVisitVM> GetPatientBCTVisit(string hn)

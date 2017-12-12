@@ -44,5 +44,10 @@ namespace CTMerge.API.Repositories
         {
             return Task.Run(() => _mySqlConnection.PatientMerge(BCT_HN, SCT_HN));
         }
+
+        public Task<bool> HasPatient(string SCT_HN)
+        {
+            return Task.Run(() => _mySqlConnection.HasPatient(SCT_HN));
+        }
     }
 }

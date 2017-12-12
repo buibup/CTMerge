@@ -7,16 +7,19 @@ using CTMerge.API.Models;
 using InterSystems.Data.CacheClient;
 using Dapper;
 using System.Data;
+using System.Data.Odbc;
 
 namespace CTMerge.API.DataAccess
 {
     public class CacheConnector : ICacheDataConnection
     {
         private const string db = "Cache";
-        private CacheConnection cacheConnection;
+        //private CacheConnection cacheConnection;
+        private OdbcConnection cacheConnection;
         public CacheConnector()
         {
-            cacheConnection = new CacheConnection(GlobalConfig.CnnString(db));
+            //cacheConnection = new CacheConnection(GlobalConfig.CnnString(db));
+            cacheConnection = new OdbcConnection(GlobalConfig.CnnString(db));
         }
 
         public BasePatientVM GetPatientByHN(string hn)
@@ -45,11 +48,24 @@ namespace CTMerge.API.DataAccess
                 query = DBCacheQuery.GetPatientByHN();
                 p.AddDynamicParams(new { PAPMI_No = _hn + "%" });
             }
-            
+            else
+            {
+                query = DBCacheQuery.GetPatientByHN();
+                p.AddDynamicParams(new { PAPMI_No = trySearch + "%" });
+            }
 
             using (IDbConnection connection = cacheConnection)
             {
-                data = connection.QueryAsync<BasePatientVM>(query, p).Result.ToList();
+                try
+                {
+                    data = connection.QueryAsync<BasePatientVM>(query, p).Result.ToList();
+                }
+                catch (Exception ex)
+                {
+
+                    throw;
+                }
+
             }
 
             return data;

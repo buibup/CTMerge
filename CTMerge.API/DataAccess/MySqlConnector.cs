@@ -22,30 +22,39 @@ namespace CTMerge.API.DataAccess
 
         private PatientVM GetPatientBCTByHN(string hn)
         {
-            using (IDbConnection connection = mySqlConnection)
+            try
             {
-                var p = new DynamicParameters();
-                p.Add("@Search_Data", hn);
-                var pt = connection.QueryAsync<PatientData>("GetPatient", p, commandType: CommandType.StoredProcedure).Result.FirstOrDefault();
-            
-                var ptvm = new PatientVM();
-                var patient = new BasePatientVM()
+                using (IDbConnection connection = mySqlConnection)
                 {
-                    HN = pt.HN,
-                    TitleName = pt.TitileName,
-                    FirstName = pt.FirstName,
-                    MiddleName = pt.MiddleName,
-                    LastName = pt.LastName,
-                    DOB = pt.DOB,
-                    SexCode = pt.SexCode,
-                    SexDesc = pt.SexDesc,
-                    IDCard = pt.IDCard
-                };
-                ptvm.Patient = patient;
-                ptvm.SCT_HN = pt.SCT_HN;
-                
-                return ptvm;
+                    var p = new DynamicParameters();
+                    p.Add("@Search_Data", hn);
+                    var pt = connection.QueryAsync<PatientData>("GetPatient", p, commandType: CommandType.StoredProcedure).Result.FirstOrDefault();
+
+                    var ptvm = new PatientVM();
+                    var patient = new BasePatientVM()
+                    {
+                        HN = pt.HN,
+                        TitleName = pt.TitileName,
+                        FirstName = pt.FirstName,
+                        MiddleName = pt.MiddleName,
+                        LastName = pt.LastName,
+                        DOB = pt.DOB,
+                        SexCode = pt.SexCode,
+                        SexDesc = pt.SexDesc,
+                        IDCard = pt.IDCard
+                    };
+                    ptvm.Patient = patient;
+                    ptvm.SCT_HN = pt.SCT_HN;
+
+                    return ptvm;
+                }
             }
+            catch (Exception)
+            {
+
+                return new PatientVM();
+            }
+            
         }
 
         public IEnumerable<PatientVM> GetPatientBCT(string search)

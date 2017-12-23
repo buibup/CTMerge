@@ -106,5 +106,17 @@ namespace CTMerge.API.DataAccess
 
             return p;
         }
+
+        Tuple<bool, User> Logon(User user)
+        {
+            var userTC = new User();
+
+            using (IDbConnection connection = cacheConnection)
+            {
+                userTC = connection.QueryFirstOrDefaultAsync<User>(DBCacheQuery.Logon(), new { SSUSR_Initials = user.SSUSR_Initials }).Result;
+            }
+            
+            return new Tuple<bool, User>(userTC.CheckPassword(user.SSUSR_Password), userTC); ;
+        }
     }
 }

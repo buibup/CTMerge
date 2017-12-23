@@ -155,5 +155,34 @@ namespace CTMerge.API.DataAccess
 
             return hasPatient;
         }
+
+        public bool MergedLog(PatientMergedLogVM log)
+        {
+            bool isMerge = false;
+
+            var p = new DynamicParameters();
+            p.Add("@_BCT_HN", log.BCT_HN);
+            p.Add("@_SCT_HN", log.SCT_HN);
+            p.Add("@_UserId", log.UserId);
+            p.Add("@_UserName", log.UserName);
+            p.Add("@_Status", log.Status);
+
+            using (IDbConnection connection = mySqlConnection)
+            {
+                try
+                {
+                    connection.QueryAsync<bool>("MergedLog", p, commandType: CommandType.StoredProcedure).Result.FirstOrDefault();
+                    isMerge = true;
+                }
+                catch (Exception e)
+                {
+
+                    return isMerge;
+                }
+
+            }
+
+            return isMerge;
+        }
     }
 }

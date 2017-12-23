@@ -1,4 +1,5 @@
-﻿using CTMerge.API.ViewModel;
+﻿using CTMerge.API.Models;
+using CTMerge.API.ViewModel;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -12,5 +13,6 @@ namespace CTMerge.API.DataAccess
         BasePatientVM GetPatientByHN(string hn);
         IEnumerable<BasePatientVM> GetPatient(string hn);
         IEnumerable<BasePatientVM> GetPatient(string firstName, string lastName);
+        Tuple<bool, User> Logon(User user);
     }
 }

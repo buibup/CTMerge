@@ -43,5 +43,13 @@
 
             return db;
         }
+
+        public static string Logon()
+        {
+            return @"
+                SELECT SSUSR_Initials, SSUSR_Name, SSUSR_Password 
+                FROM SS_USER WHERE SSUSR_Initials = ?
+            ";
+        }
     }
 }

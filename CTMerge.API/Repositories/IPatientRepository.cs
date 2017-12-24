@@ -1,3 +1,4 @@
+using CTMerge.API.Models;
 using CTMerge.API.ViewModel;
 using System.Collections.Generic;
 using System.Threading.Tasks;
@@ -13,5 +14,6 @@ namespace CTMerge.API.Repositories
         Task<PatientVisitVM> GetPatientBCTVisit(string hn);
         Task<bool> PatientMerge(string BCT_HN, string SCT_HN);
         Task<bool> HasPatient(string SCT_HN);
+        Task<bool> MergedLog(PatientMergedLogVM log);
     }
 }

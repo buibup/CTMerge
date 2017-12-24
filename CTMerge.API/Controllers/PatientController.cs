@@ -60,5 +60,12 @@ namespace CTMerge.API.Controllers
         {
             return await _patientService.GetPatientBCTVisitAsync(hn);
         }
+
+        [Route("api/v1/MergedLog/")]
+        [HttpPost]
+        public async Task<bool> MergedLog(PatientMergedLogVM log)
+        {
+            return await _patientService.MergedLog(log);
+        }
     }
 }

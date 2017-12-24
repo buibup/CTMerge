@@ -211,6 +211,7 @@
     <Compile Include="Controllers\PatientController.cs" />
     <Compile Include="Controllers\ValuesController.cs" />
     <Compile Include="DataAccess\CacheConnector.cs" />
+    <Compile Include="DataAccess\CacheLogonProcessor.cs" />
     <Compile Include="DataAccess\DBCacheQuery.cs" />
     <Compile Include="DataAccess\Extension.cs" />
     <Compile Include="DataAccess\ICacheDataConnection.cs" />
@@ -238,6 +239,7 @@
     <Compile Include="Models\Plan.cs" />
     <Compile Include="Models\Religion.cs" />
     <Compile Include="Models\Sex.cs" />
+    <Compile Include="Models\User.cs" />
     <Compile Include="Models\Ward.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Repositories\IPatientRepository.cs" />
@@ -246,6 +248,7 @@
     <Compile Include="Services\PatientService.cs" />
     <Compile Include="ViewModel\BasePatientVM.cs" />
     <Compile Include="ViewModel\EpisodeVM.cs" />
+    <Compile Include="ViewModel\PatientMergeLogVM.cs" />
     <Compile Include="ViewModel\PatientMergeVM.cs" />
     <Compile Include="ViewModel\PatientVisitVM.cs" />
     <Compile Include="ViewModel\PatientVM.cs" />

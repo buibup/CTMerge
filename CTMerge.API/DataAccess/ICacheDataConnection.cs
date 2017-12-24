@@ -13,6 +13,6 @@ namespace CTMerge.API.DataAccess
         BasePatientVM GetPatientByHN(string hn);
         IEnumerable<BasePatientVM> GetPatient(string hn);
         IEnumerable<BasePatientVM> GetPatient(string firstName, string lastName);
-        Tuple<bool, User> Logon(User user);
+        Tuple<bool, User> LogonTrakCare(User user);
     }
 }

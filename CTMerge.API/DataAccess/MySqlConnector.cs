@@ -15,6 +15,7 @@ namespace CTMerge.API.DataAccess
     {
         private const string db = "MySql";
         private MySqlConnection mySqlConnection;
+
         public MySqlConnector()
         {
             mySqlConnection = new MySqlConnection(GlobalConfig.CnnString(db));
@@ -158,31 +159,28 @@ namespace CTMerge.API.DataAccess
 
         public bool MergedLog(PatientMergedLogVM log)
         {
-            bool isMerge = false;
 
             var p = new DynamicParameters();
             p.Add("@_BCT_HN", log.BCT_HN);
             p.Add("@_SCT_HN", log.SCT_HN);
-            p.Add("@_UserId", log.UserId);
-            p.Add("@_UserName", log.UserName);
+            p.Add("@_UserId", log.User.SSUSR_Initials);
+            p.Add("@_UserName", log.User.SSUSR_Name);
             p.Add("@_Status", log.Status);
 
             using (IDbConnection connection = mySqlConnection)
             {
                 try
                 {
-                    connection.QueryAsync<bool>("MergedLog", p, commandType: CommandType.StoredProcedure).Result.FirstOrDefault();
-                    isMerge = true;
+                    connection.QueryAsync("MergedLog", p, commandType: CommandType.StoredProcedure);
+                    return true;
                 }
                 catch (Exception e)
                 {
-
-                    return isMerge;
                 }
 
             }
-
-            return isMerge;
+            
+            return false;
         }
     }
 }

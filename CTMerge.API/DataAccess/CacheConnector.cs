@@ -107,7 +107,7 @@ namespace CTMerge.API.DataAccess
             return p;
         }
 
-        Tuple<bool, User> Logon(User user)
+        public Tuple<bool, User> LogonTrakCare(User user)
         {
             var userTC = new User();
 
@@ -115,7 +115,7 @@ namespace CTMerge.API.DataAccess
             {
                 userTC = connection.QueryFirstOrDefaultAsync<User>(DBCacheQuery.Logon(), new { SSUSR_Initials = user.SSUSR_Initials }).Result;
             }
-            
+
             return new Tuple<bool, User>(userTC.CheckPassword(user.SSUSR_Password), userTC); ;
         }
     }

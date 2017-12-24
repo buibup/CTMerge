@@ -14,5 +14,11 @@
             Name,
             IDCard
         }
+
+        public enum MergedStatus
+        {
+            Unmerged,
+            Merged
+        }
     }
 }

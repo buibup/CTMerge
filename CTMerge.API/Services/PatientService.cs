@@ -34,9 +34,14 @@ namespace CTMerge.API.Services
             return _patientVisitRepository.GetPatientSCTByName(firstName, lastName);
         }
 
-        public Task<bool> IsPatientExistsAsync(string hn)
+        public async Task<bool> IsPatientExistsAsync(string hn)
         {
-            return _patientVisitRepository.HasPatient(hn);
+            return await _patientVisitRepository.HasPatient(hn);
+        }
+
+        public async Task<bool> MergedLog(PatientMergedLogVM log)
+        {
+            return await _patientVisitRepository.MergedLog(log);
         }
 
         public Task<bool> PatientMergeAsync(string BCT_HN, string SCT_HN)

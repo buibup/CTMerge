@@ -5,6 +5,7 @@ using System.Threading.Tasks;
 using CTMerge.API.ViewModel;
 using static CTMerge.API.Enums;
 using CTMerge.API.DataAccess;
+using CTMerge.API.Models;
 
 namespace CTMerge.API.Repositories
 {
@@ -49,5 +50,24 @@ namespace CTMerge.API.Repositories
         {
             return Task.Run(() => _mySqlConnection.HasPatient(SCT_HN));
         }
+
+        public Task<bool> MergedLog(PatientMergedLogVM log)
+        {
+            var userTC = new User
+            {
+                SSUSR_Initials = log.User.SSUSR_Initials,
+                SSUSR_Password = log.User.SSUSR_Password
+            };
+
+            var logon = _cacheConnection.LogonTrakCare(userTC);
+
+            if (logon.Item1)
+            {
+                Task.Run(() => _mySqlConnection.MergedLog(log));
+            }
+
+            return Task.Run(() => logon.Item1);
+        }
+
     }
 }

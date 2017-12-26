@@ -61,9 +61,19 @@ namespace CTMerge.API.Repositories
 
             var logon = _cacheConnection.LogonTrakCare(userTC);
 
+
             if (logon.Item1)
             {
-                Task.Run(() => _mySqlConnection.MergedLog(log));
+                var ptMLog = new PatientMergedLogVM
+                {
+                    BCT_HN = log.BCT_HN,
+                    SCT_HN = log.SCT_HN,
+                    User = logon.Item2,
+                    Status = log.Status,
+                    MergeDateTime = log.MergeDateTime
+                };
+
+                Task.Run(() => _mySqlConnection.MergedLog(ptMLog));
             }
 
             return Task.Run(() => logon.Item1);

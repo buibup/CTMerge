@@ -44,9 +44,9 @@ namespace CTMerge.API.Services
             return await _patientVisitRepository.MergedLog(log);
         }
 
-        public Task<bool> PatientMergeAsync(string BCT_HN, string SCT_HN)
+        public Task<bool> PatientMergeAsync(string BCT_HN, string SCT_HN, string USERNAME, string FULLNAME, string STATUS)
         {
-            return _patientVisitRepository.PatientMerge(BCT_HN, SCT_HN);
+            return _patientVisitRepository.PatientMerge(BCT_HN, SCT_HN, USERNAME, FULLNAME, STATUS);
         }
     }
 }

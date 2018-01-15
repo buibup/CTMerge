@@ -112,12 +112,15 @@ namespace CTMerge.API.DataAccess
             }
         }
 
-        public bool PatientMerge(string BCT_HN, string SCT_HN)
+        public bool PatientMerge(string BCT_HN, string SCT_HN, string USERNAME, string FULLNAME, string STATUS)
         {
             bool isMerge = false;
             var p = new DynamicParameters();
             p.Add("@_BCT_HN", BCT_HN);
             p.Add("@_SCT_HN", SCT_HN);
+            p.Add("@_USERNAME", USERNAME);
+            p.Add("@_FULLNAME", FULLNAME);
+            p.Add("@_STATUS", STATUS);
             using (IDbConnection connection = mySqlConnection)
             {
                 try
@@ -181,6 +184,28 @@ namespace CTMerge.API.DataAccess
             }
             
             return false;
+        }
+
+        public bool IsSecurityGroupAllow(string groupName)
+        {
+            bool isAllow = false;
+            var p = new DynamicParameters();
+            p.Add("@_GRPNAME", groupName);
+            using (IDbConnection connection = mySqlConnection)
+            {
+                try
+                {
+                    isAllow = connection.QueryAsync<bool>("isSecurityGroupAllow", p, commandType: CommandType.StoredProcedure).Result.FirstOrDefault();
+                }
+                catch //(Exception e)
+                {
+
+                    return isAllow;
+                }
+
+            }
+
+            return isAllow;
         }
     }
 }

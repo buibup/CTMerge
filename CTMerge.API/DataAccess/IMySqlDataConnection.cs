@@ -10,8 +10,9 @@ namespace CTMerge.API.DataAccess
     {
         IEnumerable<PatientVM> GetPatientBCT(string search);
         PatientVisitVM GetPatientBCTVisit(string hn);
-        bool PatientMerge(string BCT_HN, string SCT_HN);
+        bool PatientMerge(string BCT_HN, string SCT_HN, string USERNAME, string FULLNAME, string STATUS);
         bool HasPatient(string SCT_HN);
         bool MergedLog(PatientMergedLogVM log);
+        bool IsSecurityGroupAllow(string groupName);
     }
 }

@@ -17,7 +17,7 @@ namespace CTMerge.API.DataAccess
             return flag;
         }
 
-        private static string TrakCareEnCryptPass(string pass)
+        public static string TrakCareEnCryptPass(string pass)
         {
             int piece = 0;
             string result = string.Empty;

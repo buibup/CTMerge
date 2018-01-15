@@ -41,9 +41,9 @@ namespace CTMerge.API.Repositories
             return Task.Run(() => _mySqlConnection.GetPatientBCTVisit(hn));
         }
 
-        public Task<bool> PatientMerge(string BCT_HN, string SCT_HN)
+        public Task<bool> PatientMerge(string BCT_HN, string SCT_HN, string USERNAME, string FULLNAME, string STATUS)
         {
-            return Task.Run(() => _mySqlConnection.PatientMerge(BCT_HN, SCT_HN));
+            return Task.Run(() => _mySqlConnection.PatientMerge(BCT_HN, SCT_HN, USERNAME, FULLNAME, STATUS));
         }
 
         public Task<bool> HasPatient(string SCT_HN)

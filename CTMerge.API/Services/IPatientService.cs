@@ -12,7 +12,7 @@ namespace CTMerge.API.Services
         Task<IEnumerable<BasePatientVM>> GetPatientSCTByHNAsync(string hn);
         Task<IEnumerable<BasePatientVM>> GetPatientSCTByNameAsync(string firstName, string lastName);
         Task<PatientVisitVM> GetPatientBCTVisitAsync(string hn);
-        Task<bool> PatientMergeAsync(string BCT_HN, string SCT_HN);
+        Task<bool> PatientMergeAsync(string BCT_HN, string SCT_HN, string USERNAME, string FULLNAME, string STATUS);
         Task<bool> MergedLog(PatientMergedLogVM log);
     }
 }

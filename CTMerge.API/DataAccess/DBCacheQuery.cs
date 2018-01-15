@@ -51,5 +51,13 @@
                 FROM SS_USER WHERE SSUSR_Initials = ?
             ";
         }
+
+        public static string GetUserResult()
+        {
+            return @"
+                SELECT SSUSR_Initials, SSUSR_Name,SSUSR_Password, SSUSR_GROUP->SSGRP_Desc,SSUSR_DEFAULTDEPT_DR->CTLOC_Desc 
+                FROM SS_USER WHERE SSUSR_Initials = ?
+            ";
+        }
     }
 }
